@@ -1,36 +1,35 @@
 'use client'
 
-import { TopNav } from '@/components/top-nav'
+import { useState } from 'react'
 import { CocoBottomNav } from '@/components/coco/coco-bottom-nav'
-import { CocoHeroBg } from '@/components/coco/coco-hero-bg'
-import { DashProfile } from '@/components/dashboard/dash-profile'
-import { DashTier } from '@/components/dashboard/dash-tier'
-import { DashTools } from '@/components/dashboard/dash-tools'
+import { DashSidebar, useSidebarCollapsed } from '@/components/dashboard/dash-sidebar'
+import { DashMobileHeader, DashMascot } from '@/components/dashboard/dash-mobile'
+import { DashDesktopHero } from '@/components/dashboard/dash-desktop-hero'
+import { DashQuota } from '@/components/dashboard/dash-quota'
+import { DashProfileSheet } from '@/components/dashboard/dash-profile-sheet'
+import { DashToolsRing } from '@/components/dashboard/dash-tools-ring'
 import { type UserProfile } from '@/components/auth-provider'
+import { cn } from '@/lib/utils'
 
 export function DashboardContent({ profile }: { profile: UserProfile }) {
+  const { collapsed, toggle } = useSidebarCollapsed()
+  const [profileOpen, setProfileOpen] = useState(false)
+  const [toolsOpen, setToolsOpen] = useState(false)
+
   return (
-    <div className="coco relative min-h-dvh bg-[#0b0618]" data-testid="dashboard-page">
-      {/* Navigation layers live above every zone so they are never covered */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-[70] [&>*]:pointer-events-auto">
-        <TopNav bottomNav={false} />
-      </div>
-      <CocoBottomNav />
+    <div className={cn('coco dsh-root', collapsed && 'is-collapsed')} data-testid="dashboard-page">
+      <DashSidebar collapsed={collapsed} onToggle={toggle} onProfile={() => setProfileOpen(true)} />
 
-      {/* 1 — Profile (dark zone, same grading as the home hero) */}
-      <div className="coco-dark">
-        <div className="relative overflow-hidden pt-0 md:pt-[84px]">
-          <CocoHeroBg />
-          <DashProfile profile={profile} />
-        </div>
-      </div>
-
-      {/* 2 — Tier + quota (light zone lifted by the home-page curve) */}
-      <main className="pb-28 md:pb-0">
-        <DashTier />
-        {/* 3 — Tools */}
-        <DashTools />
+      <main className="dsh-main">
+        <DashMobileHeader profile={profile} onProfile={() => setProfileOpen(true)} />
+        <DashDesktopHero profile={profile} onOpenTools={() => setToolsOpen(true)} onProfile={() => setProfileOpen(true)} />
+        <DashMascot onOpen={() => setToolsOpen(true)} />
+        <DashQuota />
       </main>
+
+      <CocoBottomNav />
+      <DashProfileSheet profile={profile} open={profileOpen} onClose={() => setProfileOpen(false)} />
+      <DashToolsRing open={toolsOpen} onClose={() => setToolsOpen(false)} />
     </div>
   )
 }

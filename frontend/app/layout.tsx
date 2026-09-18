@@ -15,6 +15,7 @@ import './analysis-result.css'
 import './injector.css'
 import './signals.css'
 import './tools.css'
+import './dashboard.css'
 import './loader.css'
 import './admin.css'
 
