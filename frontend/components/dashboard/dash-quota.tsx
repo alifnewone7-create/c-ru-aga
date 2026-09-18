@@ -47,9 +47,10 @@ export function DashQuota() {
         <h2 className="coco-display coco-title-gradient mx-auto mt-4 max-w-[24ch] text-balance text-[1.6rem] sm:text-[2.3rem] lg:text-[2.6rem]">
           Your plan and daily engine quota.
         </h2>
+        <span className="dsh-tier-rule" aria-hidden="true" data-testid="tier-headline-rule" />
       </div>
 
-      <div className="mt-10 flex flex-col gap-4">
+      <div className="mt-8 flex flex-col gap-4">
         <div className="coco-shade relative overflow-hidden rounded-[24px] p-5 sm:p-6" data-testid="tier-plan-card">
           <span className="coco-d2-hero-line" aria-hidden="true" />
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-8">

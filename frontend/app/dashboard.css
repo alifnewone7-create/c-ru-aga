@@ -515,6 +515,21 @@
   width: 100%;
   max-width: 1240px;
 }
+.dsh-tier-rule {
+  display: block;
+  height: 1px;
+  width: min(220px, 60%);
+  margin: 18px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #b48cff 30%, #6d3bff 50%, #b48cff 70%, transparent);
+  opacity: 0.8;
+}
+@media (min-width: 640px) {
+  .dsh-tier-rule {
+    margin-top: 22px;
+    width: 280px;
+  }
+}
 .dsh-unlock.mb-4 {
   margin-top: 0;
 }
