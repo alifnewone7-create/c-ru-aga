@@ -45,12 +45,8 @@ export function DashQuota() {
           Access tier
         </span>
         <h2 className="coco-display coco-title-gradient mx-auto mt-4 max-w-[24ch] text-balance text-[1.6rem] sm:text-[2.3rem] lg:text-[2.6rem]">
-          Your licence and daily engine quota.
+          Your plan and daily engine quota.
         </h2>
-        <p className="coco-muted mx-auto mt-3 max-w-[54ch] text-pretty text-sm sm:text-[15px]">
-          Every tool draws from its own daily allowance. Watch what is left, and upgrade the moment
-          you need more room.
-        </p>
       </div>
 
       <div className="mt-10 flex flex-col gap-4">
