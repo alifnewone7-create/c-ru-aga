@@ -21,10 +21,14 @@ export function DashboardContent({ profile }: { profile: UserProfile }) {
       <DashSidebar collapsed={collapsed} onToggle={toggle} onProfile={() => setProfileOpen(true)} />
 
       <main className="dsh-main">
-        <DashMobileHeader profile={profile} onProfile={() => setProfileOpen(true)} />
-        <DashDesktopHero profile={profile} onOpenTools={() => setToolsOpen(true)} onProfile={() => setProfileOpen(true)} />
-        <DashMascot onOpen={() => setToolsOpen(true)} />
-        <DashQuota />
+        <div className="dsh-dark-zone">
+          <DashMobileHeader profile={profile} onProfile={() => setProfileOpen(true)} />
+          <DashDesktopHero profile={profile} onOpenTools={() => setToolsOpen(true)} onProfile={() => setProfileOpen(true)} />
+          <DashMascot onOpen={() => setToolsOpen(true)} />
+        </div>
+        <div className="coco-light coco-curve-top dsh-light-zone" data-testid="dashboard-light-zone">
+          <DashQuota />
+        </div>
       </main>
 
       <CocoBottomNav />

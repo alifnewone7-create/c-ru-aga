@@ -43,6 +43,7 @@ Design system: "cosmic purple" — background `#0b0618`, iris `#6d3bff` / `#8b5c
   - Daily quota → gauge cards (240° SVG arc, per-feature tone), 2-col mobile / 5-col desktop; free tier shows locked gauges + unlock CTA.
   - Testing agent iteration_11: 100% pass (mobile + desktop). Test user `dashtest.coco@example.com` (premium) — see test_credentials.md.
   - CSS gotcha: plain `.dsh-*` display rules override Tailwind `md:hidden`; mobile-only blocks are hidden via a media query at the END of dashboard.css.
+  - Follow-up (same day): lower dashboard zone is again the white `coco-light coco-curve-top` block (mobile + desktop, below the dark hero/mascot zone); quota gauges restyled for light zone; glow `drop-shadow` filter removed (mobile lag); arc now FILLS with usage (used/limit, hidden at 0 to avoid round-cap dots), centre shows used count + "of N used", footer "N left today". testid `quota-used-*` replaces `quota-remaining-*`.
 
 ## Backlog
 - P1: none pending from user.

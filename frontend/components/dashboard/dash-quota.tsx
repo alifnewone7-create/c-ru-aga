@@ -41,8 +41,8 @@ export function DashQuota() {
           <GlyphQuota className="h-[18px] w-[18px]" />
         </span>
         <div className="min-w-0 flex-1">
-          <h2 className="coco-sub text-[17px] text-white sm:text-[19px]">Daily quota</h2>
-          <p className="mt-0.5 text-[12.5px] text-white/50">
+          <h2 className="coco-sub text-[17px] text-[var(--ink)] sm:text-[19px]">Daily quota</h2>
+          <p className="coco-muted mt-0.5 text-[12.5px]">
             {hasAccess ? `${TIER_LABEL[tier]} plan · ${isUnlimited ? 'unlimited' : `${limit} per tool`}` : 'Free plan · generation locked'}
           </p>
         </div>
@@ -65,7 +65,7 @@ export function DashQuota() {
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-[13.5px] font-semibold text-white">Unlock your licence</span>
-            <span className="block text-[12px] text-white/55">Every tool below opens with a daily allowance.</span>
+            <span className="block text-[12px] text-white/60">Every tool below opens with a daily allowance.</span>
           </span>
           <ArrowRight className="h-4 w-4 flex-none text-[#c4a6ff]" />
         </a>
@@ -108,9 +108,8 @@ function GaugeCard({
   const Glyph = FEATURE_GLYPH[feature]
   const tone = FEATURE_TONE[feature]
   const remaining = unlimited || limit === null ? null : Math.max(0, limit - used)
-  const pct = loading || locked ? 0 : unlimited ? 100 : limit ? Math.round(((remaining ?? 0) / limit) * 100) : 0
+  const pct = loading || locked || unlimited || !limit ? 0 : Math.min(100, Math.round((used / limit) * 100))
   const depleted = !locked && remaining !== null && remaining <= 0
-  const color = depleted ? '#ff6a7a' : tone.light
   const gid = `g-${feature}`
 
   return (
@@ -123,15 +122,15 @@ function GaugeCard({
         <span className="dsh-gauge-icon">
           <Glyph className="h-[16px] w-[16px]" />
         </span>
-        <p className="truncate text-[12.5px] font-semibold text-white/85">{FEATURE_LABEL[feature]}</p>
+        <p className="truncate text-[12.5px] font-semibold text-[var(--ink)]">{FEATURE_LABEL[feature]}</p>
       </div>
 
       <div className="dsh-gauge-arc">
         <svg viewBox="0 0 120 92" aria-hidden="true">
           <defs>
             <linearGradient id={gid} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={depleted ? '#ff8a96' : tone.dark} />
-              <stop offset="100%" stopColor={color} />
+              <stop offset="0%" stopColor={depleted ? '#d1435b' : tone.dark} />
+              <stop offset="100%" stopColor={depleted ? '#f19aa6' : tone.light} />
             </linearGradient>
           </defs>
           <path d={ARC} className="dsh-gauge-track" pathLength={100} />
@@ -141,21 +140,21 @@ function GaugeCard({
             pathLength={100}
             stroke={`url(#${gid})`}
             strokeDasharray={`${pct} 100`}
-            style={{ filter: `drop-shadow(0 0 6px ${color}66)` }}
+            style={{ opacity: pct > 0 ? 1 : 0 }}
           />
         </svg>
         <div className="dsh-gauge-center">
           {locked ? (
-            <Lock className="h-6 w-6 text-white/45" />
+            <Lock className="h-6 w-6 text-[#9a9aa3]" />
           ) : unlimited ? (
             <GlyphInfinite className="h-8 w-8" />
           ) : (
-            <span className="dsh-gauge-num" data-testid={`quota-remaining-${feature}`}>
-              {loading ? '—' : remaining}
+            <span className="dsh-gauge-num" data-testid={`quota-used-${feature}`}>
+              {loading ? '—' : used}
             </span>
           )}
-          <span className="coco-mono text-[8.5px] uppercase tracking-[0.16em] text-white/40">
-            {locked ? 'locked' : unlimited ? 'unlimited' : 'left'}
+          <span className="coco-mono text-[8.5px] uppercase tracking-[0.16em] text-[#9a9aa3]">
+            {locked ? 'locked' : unlimited ? 'unlimited' : `of ${limit} used`}
           </span>
         </div>
       </div>
@@ -167,7 +166,7 @@ function GaugeCard({
             ? 'No daily cap'
             : depleted
               ? 'Daily limit reached'
-              : `${used} of ${limit} used today`}
+              : `${remaining} left today`}
       </p>
     </li>
   )
