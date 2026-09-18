@@ -36,6 +36,14 @@ Design system: "cosmic purple" — background `#0b0618`, iris `#6d3bff` / `#8b5c
   - Bugfix: news timeline rows now a CSS grid `[time][node][card]` (time no longer overlaps dot); event/fundamental lists moved outside the heavy `inj-panel`, hover transitions gated by `@media (hover:hover)`, `content-visibility:auto` on rows for smoother mobile scroll. Testing agent iteration_10: 100% frontend pass.
   - OTC/Real segmented-tab icons on Live/Injector/Future now use the home-page custom glyphs `GlyphOtc` / `GlyphReal` (`components/coco/coco-glyphs.tsx`), class `inj-seg-glyph`, subtle animation when active (hover-capable devices only).
 
+- 2026-09-18 (dashboard v3 redesign, user spec in Bengali):
+  - `/dashboard` rebuilt (`components/dashboard-content.tsx`, `components/dashboard/dash-*.tsx`, `app/dashboard.css`, `dsh-*` classes). Old profile/tier/tools sections deleted.
+  - Mobile: top-left avatar + name/email header; avatar tap → bottom-sheet profile card (banner, ring avatar, verified icon for non-free tiers, tier chip, email card with copy, tier card, log out). Mascot (AI-generated fox character with COCO AI branding, chroma-keyed, `/public/dash/mascot.webp`) + "Open tools" button → blurred overlay with 3D rotating ring of 6 tool cards (`/public/dash/card-*.webp`, generated) → tap navigates. Trading tools grid removed.
+  - Desktop: collapsible left sidebar (icon-only toggle, persisted in localStorage `coco_sidebar_collapsed`), full-width hero banner with mascot + avatar strip/stats, same ring overlay. TopNav not used on the dashboard (other pages unchanged).
+  - Daily quota → gauge cards (240° SVG arc, per-feature tone), 2-col mobile / 5-col desktop; free tier shows locked gauges + unlock CTA.
+  - Testing agent iteration_11: 100% pass (mobile + desktop). Test user `dashtest.coco@example.com` (premium) — see test_credentials.md.
+  - CSS gotcha: plain `.dsh-*` display rules override Tailwind `md:hidden`; mobile-only blocks are hidden via a media query at the END of dashboard.css.
+
 ## Backlog
 - P1: none pending from user.
 - P2: Consider self-hosting all flag SVGs to remove the external CDN dependency entirely.
