@@ -44,6 +44,7 @@ Design system: "cosmic purple" — background `#0b0618`, iris `#6d3bff` / `#8b5c
   - Testing agent iteration_11: 100% pass (mobile + desktop). Test user `dashtest.coco@example.com` (premium) — see test_credentials.md.
   - CSS gotcha: plain `.dsh-*` display rules override Tailwind `md:hidden`; mobile-only blocks are hidden via a media query at the END of dashboard.css.
   - Follow-up (same day): lower dashboard zone is again the white `coco-light coco-curve-top` block (mobile + desktop, below the dark hero/mascot zone); quota gauges restyled for light zone; glow `drop-shadow` filter removed (mobile lag); arc now FILLS with usage (used/limit, hidden at 0 to avoid round-cap dots), centre shows used count + "of N used", footer "N left today". testid `quota-used-*` replaces `quota-remaining-*`.
+  - Follow-up 2: restored the previous section chrome in the white zone — "Access tier" eyebrow, "Your licence and daily engine quota." headline + description, dark `coco-shade` "Current plan" card (plan name, reset-note toggle, Upgrade licence CTA), then the Daily quota panel with gauges. Section testid `dashboard-tier`, plan card `tier-plan-card`.
 
 ## Backlog
 - P1: none pending from user.

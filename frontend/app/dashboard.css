@@ -510,11 +510,18 @@
   background: linear-gradient(180deg, #9a66ff, #6d3bff);
   color: #fff;
 }
+.dsh-tier {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1240px;
+}
+.dsh-unlock.mb-4 {
+  margin-top: 0;
+}
 .dsh-gauge-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
-  margin-top: 16px;
 }
 .dsh-gauge-grid > li:last-child:nth-child(odd) {
   grid-column: 1 / -1;
